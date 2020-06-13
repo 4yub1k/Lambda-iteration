@@ -1,0 +1,30 @@
+%Function file
+function [lmda,set,y11,y22,y33]=por2(lmda,price)
+syms x;
+h1=(749.55 + 6.95*x +(9.68*10^-4)*x.^2 +(1.27*10^-7)*x.^3)*price;
+y1=diff(h1,x);
+x1=y1;
+%y1=double(subs(y1,x1));
+syms x;
+h2=(1285.0 +7.051*x +(7.375*10^-4)*x.^2 +(6.453*10^-8)*x.^3)*price;
+y2=diff(h2,x);
+x2=y2;
+%y2=double(subs(y2,x2));
+h3=(1531.0 + 6.531*x +(1.04*10^-3)*x.^2 + (9.98*10^-8)*x.^3)*price;
+y3=diff(h3,x);
+x3=y3;
+%y3=double(subs(y3,x3));
+y1=y1-lmda==0;
+y2=y2-lmda==0;
+y3=y3-lmda==0;
+y1=solve(y1,x);
+y2=solve(y2,x);
+y3=solve(y3,x);
+y11 = y1(y1>=0);
+y22 = y2(y2>=0);
+y33 = y3(y3>=0);
+Error=2500-(y11+y22+y33);
+y11=double(y11);
+y22=double(y22);
+y33=double(y33);
+set=double(Error);
